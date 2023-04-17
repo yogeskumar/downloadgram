@@ -72,7 +72,7 @@ const getMediaUrl = async (inputURL) => {
 //     res.json({ links: links.url_list });
 // });
 
-app.post('/api/getmedia', async (req, res) => {
+app.post('/', async (req, res) => {
     try {
         const inputURL = req.body.inputValue;
         const links = await getMediaUrl(inputURL);
