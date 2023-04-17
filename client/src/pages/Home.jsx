@@ -100,9 +100,12 @@ const Home = () => {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:5001/api/getmedia", {
-        inputValue,
-      });
+      const response = await axios.post(
+        "https://downloadgram-backend.onrender.com",
+        {
+          inputValue,
+        }
+      );
       console.log("media ->", response.data.links);
       setLinks(response.data.links);
     } catch (error) {
