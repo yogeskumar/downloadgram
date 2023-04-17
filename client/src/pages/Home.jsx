@@ -101,7 +101,7 @@ const Home = () => {
     }
     try {
       const response = await axios.post(
-        "https://downloadgram-backend.onrender.com/",
+        "https://downloadgram-backend.onrender.com",
         {
           inputValue,
         }
