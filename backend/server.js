@@ -44,23 +44,17 @@ app.use(bodyParser.json());
 
 const getMediaUrl = async (inputURL) => {
     try {
-        console.log('Test 5 passed')
         let links = await instagramGetUrl(inputURL);
-        console.log('Test 6 passed')
         // console.log(links)
         return new Promise((resolve, reject) => {
-            console.log('Test 7 passed')
             // some asynchronous operation here
             // ...
             // const result = 42; // the value you want to return
             resolve(links); // wrap the value in a resolved Promise
-            console.log('Test 8 passed')
         });
     } catch (error) {
-        console.log('Test 9 passed, inputURL-> ' + inputURL)
         // Handle the error
         console.error(error);
-        console.log('Test 10 passed')
         // Return a rejected Promise
         return Promise.reject(error);
     }
@@ -83,12 +77,9 @@ app.post('/', async (req, res) => {
         const inputURL = req.body.inputValue;
         const links = await getMediaUrl(inputURL);
         res.json({ links: links.url_list });
-        console.log('Test 2 passed')
     } catch (error) {
-        console.log('Test 3 passed')
         console.error(error);
         res.status(500).json({ error: 'Internal server error-> ' + error });
-        console.log('Test 4 passed')
     }
 });
 
@@ -96,5 +87,4 @@ app.post('/', async (req, res) => {
 // Start the server
 app.listen(5001, () => {
     console.log('Server listening on port 5001');
-    console.log('Test 1 passed')
 });
