@@ -48,8 +48,10 @@ module.exports = instagramGetUrl = (url_media) =>{
             .catch(function (error) {
                 reject(error.message)
             })
+            
         } catch(e){
-            reject(e.message)
+            console.log(e)
+            reject(e)
         }
     })
 }
