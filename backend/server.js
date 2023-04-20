@@ -59,7 +59,7 @@ const getMediaUrl = async (inputURL) => {
         });
     } catch (error) {
         // Handle the error
-        console.error(error);
+        console.error({InstagramBasedError:error});
         // Return a rejected Promise
         return Promise.reject(error);
     }
@@ -81,6 +81,7 @@ app.post('/', async (req, res) => {
     try {
         const inputURL = req.body.inputValue;
         const links = await getMediaUrl(inputURL);
+        console.log({links})
         res.json({ links: links.url_list });
     } catch (error) {
         console.error(error);
@@ -91,6 +92,10 @@ app.get('/ping', (req, res)=>{
     res.json({message:"pong"})
 })
 
+app.post('/ping', (req, res)=>{
+    let message = body.msg
+    res.json({message})
+})
 
 // Start the server
 app.listen(5001, () => {
