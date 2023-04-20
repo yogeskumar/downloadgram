@@ -13,7 +13,8 @@ const app = express();
 const corsOptions = {
     origin: "*", // frontend URI (ReactJS)
     optionsSuccessStatus: 200,
-	allowedHeaders: ['Content-Type', 'Authorization', 'X-Custom-Header']
+    preflightContinue:true,
+	allowedHeaders: ['Content-Type', 'Authorization', 'X-Custom-Header', "Access-Control-Allow-Headers"]
 }
 app.use(express.json());
 app.use(logger('combined'))
@@ -26,6 +27,25 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 
+// app.use(
+//     '/api',
+//     createProxyMiddleware({
+//         target: 'http://api.example.com',
+//         changeOrigin: true,
+//     })
+// );
+
+// const getMediaUrl = async (inputURL) => {
+//     let links = await instagramGetUrl(inputURL)
+//     // let links = await instagramGetUrl(inputURL);
+//     // console.log(links)
+//     return new Promise((resolve, reject) => {
+//         // some asynchronous operation here
+//         // ...
+//         // const result = 42; // the value you want to return
+//         resolve(links); // wrap the value in a resolved Promise
+//     });
+// }
 
 const getMediaUrl = async (inputURL) => {
     try {
@@ -39,19 +59,29 @@ const getMediaUrl = async (inputURL) => {
         });
     } catch (error) {
         // Handle the error
-        console.error(error);
+        console.error({InstagramBasedError:error});
         // Return a rejected Promise
         return Promise.reject(error);
     }
 };
 
 
+// Define a route to handle incoming POST requests
+// app.post('/api/getmedia', async (req, res) => {
+//     inputURL = req.body.inputValue;
+//     // Log the data sent in the request body
+//     // console.log(req.body.inputValue);
+//     links = await getMediaUrl(inputURL)
+//     // console.log(links.url_list, 'from')
+//     // Send a JSON response to the client
+//     res.json({ links: links.url_list });
+// });
+
 app.post('/', async (req, res) => {
     try {
         const inputURL = req.body.inputValue;
-        console.log(inputURL)
         const links = await getMediaUrl(inputURL);
-
+        console.log({links})
         res.json({ links: links.url_list });
     } catch (error) {
         console.error(error);
