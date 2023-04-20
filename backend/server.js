@@ -1,4 +1,4 @@
-const instagramGetUrl = require("instagram-url-direct")
+const instagramGetUrl = require("./instagram-url-direct-local")
 // const instagramGetUrl = require("instagram-get-url");
 // const { createProxyMiddleware } = require('http-proxy-middleware');
 
@@ -93,7 +93,7 @@ app.get('/ping', (req, res)=>{
 })
 
 app.post('/ping', (req, res)=>{
-    let message = body.msg
+    let message = res.body.msg
     res.json({message})
 })
 
