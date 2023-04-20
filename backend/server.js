@@ -93,7 +93,7 @@ app.get('/ping', (req, res)=>{
 })
 
 app.post('/ping', (req, res)=>{
-    let message = res.body.msg
+    let message = req.body
     res.json({message})
 })
 
