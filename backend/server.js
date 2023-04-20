@@ -13,7 +13,8 @@ const app = express();
 const corsOptions = {
     origin: "*", // frontend URI (ReactJS)
     optionsSuccessStatus: 200,
-	allowedHeaders: ['Content-Type', 'Authorization', 'X-Custom-Header']
+    preflightContinue:true,
+	allowedHeaders: ['Content-Type', 'Authorization', 'X-Custom-Header', "Access-Control-Allow-Headers"]
 }
 app.use(express.json());
 app.use(logger('combined'))
