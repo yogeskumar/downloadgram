@@ -5,14 +5,18 @@ const instagramGetUrl = require("instagram-url-direct")
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const logger = require('morgan');
 
 const app = express();
 
 // middleware
 const corsOptions = {
-    origin: "https://downloadgram.onrender.com" // frontend URI (ReactJS)
+    origin: "*", // frontend URI (ReactJS)
+    optionsSuccessStatus: 200,
+	allowedHeaders: ['Content-Type', 'Authorization', 'X-Custom-Header']
 }
 app.use(express.json());
+app.use(logger('combined'))
 app.use(cors(corsOptions));
 
 // Allow cross-origin requests from any domain
@@ -45,7 +49,7 @@ app.use(bodyParser.json());
 const getMediaUrl = async (inputURL) => {
     try {
         let links = await instagramGetUrl(inputURL);
-        // console.log(links)
+        console.log(links)
         return new Promise((resolve, reject) => {
             // some asynchronous operation here
             // ...
@@ -82,6 +86,9 @@ app.post('/', async (req, res) => {
         res.status(500).json({ error: 'Internal server error-> ' + error });
     }
 });
+app.get('/ping', (req, res)=>{
+    res.json({message:"pong"})
+})
 
 
 // Start the server
